@@ -39,6 +39,11 @@ tls = { path = "../../libs/tls" }
 tungstenite = "0.20.1"
 ureq = { version = "2.7.1", features = ["json"] }
 url = "2.2.2"
+prost = "0.12"
+#libsignal-protocol={path="../../../libsignal/rust/protocol"}
+
+[build-dependencies]
+prost-build = "0.12"
 
 [features]
 default = []

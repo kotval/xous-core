@@ -1,6 +1,3 @@
-// this is a stub for a wrapped libsignal
-
-
 // use org.whispersystems.signalservice.internal.crypto.PrimaryProvisioningCipher;
 pub struct PrimaryProvisioningCipher{}
 impl PrimaryProvisioningCipher {
@@ -37,15 +34,15 @@ impl ProvisionMessage {
 // message ProvisioningUuid {
 //   optional string uuid = 1;
 // }
-pub struct ProvisioningUuid {
-    pub id : String,
-}
-impl ProvisioningUuid {
-    pub fn decode(bytes: Vec<u8>) -> ProvisioningUuid {
-        log::info!("raw uuid Protocol Buffer: {:?}", bytes);
-        ProvisioningUuid {id : "TODO decode uuid Protocol Buffer".to_string()} 
-    }
-}
+//pub struct ProvisioningUuid {
+//    pub id : String,
+//}
+//impl ProvisioningUuid {
+//    pub fn decode(bytes: Vec<u8>) -> ProvisioningUuid {
+//        log::info!("raw uuid Protocol Buffer: {:?}", bytes);
+//        ProvisioningUuid {id : "TODO decode uuid Protocol Buffer".to_string()} 
+//    }
+//}
 
 //////////////////////////////////////////////////////////
 

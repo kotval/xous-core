@@ -1,5 +1,6 @@
 mod group_permission;
 mod libsignal; // stub
+mod signalservice;
 mod link_state;
 mod signal_ws;
 mod trust_mode;
@@ -154,7 +155,7 @@ impl Manager {
                 log::info!("provisioning websocket established to {host}");
                 match ws.read() {
                     Ok(Message::Binary(uuid)) => {
-                        let uuid = libsignal::ProvisioningUuid::decode(uuid).id.clone();
+                        let uuid = signalservice::ProvisioningUuid::decode(uuid).id.clone();
                         let identity_key_pair = libsignal::generate_identity_key_pair();
                         let pub_key = identity_key_pair.djb_identity_key.key.clone();
                         match url::Url::parse_with_params(
