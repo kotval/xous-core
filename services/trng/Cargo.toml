@@ -19,7 +19,7 @@ rkyv = { version = "0.4.3", default-features = false, features = [
     "const_generics",
 ] }
 xous-ipc = "0.9.57"
-rand_core = "0.5.1" # the 0.5.1 API is necessary for compatibility with curve25519-dalek crates
+rand_core = { version = "0.6.4", default-features = false}  # the 0.6.4 API is necessary for compatibility with curve25519-dalek crates
 utralib = { version = "0.1.24", optional = true, default-features = false }
 
 [target.'cfg(any(windows,unix))'.dependencies]

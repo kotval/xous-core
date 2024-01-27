@@ -1,6 +1,6 @@
 [package]
 name = "sha2"
-version = "0.9.8"
+version = "0.10.8"
 authors = ["bunnie <bunnie@kosagi.com>"]
 edition = "2018"
 description = "Sha512 hardware accelerator engine"
@@ -23,7 +23,7 @@ rkyv = { version = "0.4.3", default-features = false, features = [
 ] }
 
 # Rust-standard digest API dependencies
-digest = "0.9.0"
+digest = "0.10.7"
 block-buffer = "0.9.0"
 opaque-debug = "0.3.0" # prevents internal hash state leakage from debug structures
 

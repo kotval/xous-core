@@ -3,7 +3,7 @@
 pub mod api;
 use api::{TrngTestMode, TRNG_TEST_BUF_LEN};
 use num_traits::*;
-// the 0.5.1 API is necessary for compatibility with curve25519-dalek crates
+// the 0.6.4 API is necessary for compatibility with curve25519-dalek crates
 use rand_core::{CryptoRng, RngCore};
 use xous::{send_message, CID};
 use xous_ipc::Buffer;

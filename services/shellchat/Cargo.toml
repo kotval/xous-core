@@ -26,7 +26,7 @@ susres = { package = "xous-api-susres", version = "0.9.53" }
 codec = { path = "../codec" }
 #engine-sha512 = {path="../engine-sha512"}
 sha2 = { path = "../engine-sha512" }
-digest = "0.9.0"
+digest = "0.10.7"
 aes = { path = "../aes" }
 cipher = "0.3.0"
 engine-25519 = { path = "../engine-25519" }
@@ -97,10 +97,10 @@ random-pick = { version = "1.2.15", optional = true }
 # hardware acceleration adaptations are inserted into a fork of the main branch.
 hex = { version = "0.4.3", default-features = false, features = [] }
 #sha2 = {version = "0.9.5", default-features = false, features = []}
+
 [dependencies.curve25519-dalek]
-version = "3.1.0"                       # note this is patched to our fork in ./Cargo.toml
+version = "4.1.1"                       # note this is patched to our fork in ./Cargo.toml
 default-features = false
-features = ["u32_backend", "betrusted"]
 
 [dependencies.x25519-dalek]
 version = "1.1.1"
@@ -108,10 +108,10 @@ default-features = false
 features = ["u32_backend"]
 
 [dependencies.ed25519-dalek]
-version = "1.0.1"
+version = "2.1.0"
 #path = "../../../ed25519-dalek"
 default-features = false
-features = ["u32_backend", "rand"]
+features = ["rand_core"]
 
 [features]
 precursor = ["utralib/precursor"]
