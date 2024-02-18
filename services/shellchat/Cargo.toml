@@ -99,6 +99,7 @@ hex = { version = "0.4.3", default-features = false, features = [] }
 [dependencies.curve25519-dalek]
 version = "4.1.1"        # note this is patched to our fork in ./Cargo.toml
 default-features = false
+<<<<<<< Updated upstream
 #Note: legacy_compatibility enables calling Scalar::from_bits on curve25519_dalek::Scalar.
 # This method is deprecated due to the danger that if one used it without verifying that
 # the key is on the prime order subgroup (which can be ensured by clamping), then one would
@@ -108,6 +109,9 @@ default-features = false
 # crate unification works, but I suspect you don't get different versions of the crate based one
 # features.
 features = ["legacy_compatibility"]
+=======
+features = ["u32e_backend"]
+>>>>>>> Stashed changes
 
 [dependencies.x25519-dalek]
 version = "2.0.0"

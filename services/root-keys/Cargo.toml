@@ -73,6 +73,7 @@ hex = { version = "0.4.3", default-features = false, features = [] }
 [dependencies.curve25519-dalek]
 version = "4.1.1"        # note this is patched to our fork in ./Cargo.toml
 default-features = false
+features = ["u32e_backend"]
 
 [dependencies.ed25519-dalek]
 version = "2.1.0"

@@ -146,7 +146,11 @@ path = "services/aes"
 [patch.crates-io.curve25519-dalek]
 #git = "https://github.com/betrusted-io/curve25519-dalek.git"
 #branch = "main"
+<<<<<<< Updated upstream
 path = "../curve25519-dalek/curve25519-dalek"  # when doing local dev work
+=======
+path = "../curve25519-dalek/curve25519-dalek" # when doing local dev work
+>>>>>>> Stashed changes
 # feature overrides are specified at the crate level
 
 [patch."https://github.com/betrusted-io/xous-engine-25519.git"]
