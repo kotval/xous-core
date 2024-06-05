@@ -69,7 +69,7 @@ showAnalyzer memlcd
 
 sysbus Tag <0xB0000000, 0xB0006000> "Framebuffer"
 
-# logLevel -1 keyboard
+logLevel -1 keyboard
 # logLevel -1 ticktimer
 # logLevel -1 engine
 # logLevel -1 i2c

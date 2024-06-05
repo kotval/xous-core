@@ -2,6 +2,9 @@
 #![cfg_attr(target_os = "none", no_main)]
 
 use core::fmt::Write;
+use std::thread;
+use std::time::Duration;
+use std::sync::{Mutex, Arc};
 
 use graphics_server::api::GlyphStyle;
 use graphics_server::{DrawStyle, Gid, PixelColor, Point, Rectangle, TextBounds, TextView};
@@ -32,6 +35,7 @@ struct Hello {
     screensize: Point,
     #[cfg(feature = "tts")]
     tts: TtsFrontend,
+    n: u32
 }
 
 impl Hello {
@@ -61,6 +65,7 @@ impl Hello {
             screensize,
             #[cfg(feature = "tts")]
             tts: TtsFrontend::new(xns).unwrap(),
+            n: 0
         }
     }
 
@@ -76,6 +81,30 @@ impl Hello {
                 ),
             )
             .expect("can't clear content area");
+    }
+
+    fn draw(&mut self) {
+        let mut text_view = TextView::new(
+            self.content,
+            TextBounds::GrowableFromBr(
+                Point::new(
+                    self.screensize.x - (self.screensize.x / 2) + (self.n as i16),
+                    self.screensize.y - (self.screensize.y / 2) + (self.n as i16),
+                ),
+                (self.screensize.x / 5 * 4) as u16,
+            ),
+        );
+
+        text_view.border_width = 1;
+        text_view.draw_border = true;
+        text_view.clear_area = true;
+        text_view.rounded_border = Some(3);
+        text_view.style = GlyphStyle::Regular;
+        write!(text_view.text, "hello world: {}", self.n).expect("Could not write to text view");
+        self.n = self.n + 1;
+        self.gam.post_textview(&mut text_view).expect("Could not render text view");
+        self.gam.redraw().expect("Could not redraw screen");
+        
     }
 
     /// Redraw the text view onto the screen.
@@ -98,10 +127,12 @@ impl Hello {
         text_view.clear_area = true;
         text_view.rounded_border = Some(3);
         text_view.style = GlyphStyle::Regular;
-        write!(text_view.text, "{}", t!("helloworld.hello", locales::LANG))
-            .expect("Could not write to text view");
-        #[cfg(feature = "tts")]
-        self.tts.tts_simple(t!("helloworld.hello", locales::LANG)).unwrap();
+        write!(text_view.text, "hello world: {}", self.n).expect("Could not write to text view");
+        self.n = self.n + 1;
+        //write!(text_view.text, "{}", t!("helloworld.hello", locales::LANG))
+        //    .expect("Could not write to text view");
+        //#[cfg(feature = "tts")]
+        //self.tts.tts_simple(t!("helloworld.hello", locales::LANG)).unwrap();
 
         self.gam.post_textview(&mut text_view).expect("Could not render text view");
         self.gam.redraw().expect("Could not redraw screen");
@@ -119,15 +150,25 @@ fn main() -> ! {
     let sid = xns.register_name(SERVER_NAME_HELLO, None).expect("can't register server");
 
     let mut hello = Hello::new(&xns, sid);
-
+    let handle = Arc::new(Mutex::new(hello));
     loop {
         let msg = xous::receive_message(sid).unwrap();
         log::debug!("Got message: {:?}", msg);
-
+                 
         match FromPrimitive::from_usize(msg.body.id()) {
             Some(HelloOp::Redraw) => {
                 log::debug!("Got redraw");
-                hello.redraw();
+
+                //hello.redraw();
+                for i in 0..69 {
+                let handle = Arc::clone(&handle);
+                thread::spawn(move || {
+                    thread::sleep(Duration::from_millis(100));
+                    let mut widdle_handle = handle.lock().unwrap();
+                    log::info!("yee haw: {}, yee naw: {}", i,widdle_handle.n);
+                    widdle_handle.draw();
+                });
+                };
             }
             Some(HelloOp::Quit) => {
                 log::info!("Quitting application");
